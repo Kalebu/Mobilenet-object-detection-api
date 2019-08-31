@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trash collector</title>
+
+    <!--Loading bulma css-->
+
+    <link  href="/static/css/bulma.min.css" rel="stylesheet">
+
+    <script type="text/javascript">
+            // Notice there is no 'import' statement. 'mobilenet' and 'tf' is
+  // available on the index-page because of the script tag above
+                       
+            function testing(buttons){
+
+                    var colors = ['button is-danger', 'button is-link', 'button is-primary']
+                    var count = 0;
+                    var decoration_color=null;
+
+                    for (var element in buttons){
+                        decoration_color = colors[count];
+
+                        //Creating a button _______________
+                        var btn = document.createElement('BUTTON');
+                        btn.innerHTML = buttons[element];
+                        btn.setAttribute('onclick', 'predict()')
+                        btn.className += decoration_color;
+                        btn.style.width=20;
+                        btn.style.length=50;
+                        
+
+                        //Creating a th
+
+                        var Th = document.createElement('th');
+                        Th.appendChild(btn)
+
+                        var breakline = document.createElement('br');
+
+                        if (element>=0 && element<4){
+                                document.getElementById('tag1').appendChild(Th)
+                                //document.body.appendChild(btn);
+                        }
+
+                        else if (element>=3 && element<8){
+                            Th.appendChild(breakline)
+                            document.getElementById('tag2').appendChild(Th)
+                                //document.body.appendChild(btn);
+                        }
+
+                        else if (element>=8 && element<12){
+                            Th.appendChild(breakline)
+                            document.getElementById('tag3').appendChild(Th)
+                                //document.body.appendChild(btn);
+                        }
+
+                        count+=1;
+                        if (count == 3){
+                            count = 0
+                        }
+                    }
+
+            }
+    
+    
+    </script>
+    
+</head>
+
+<body>
+
+    <section class="section">
+        <div class="container"></div>
+            <div class="columns">
+                <div class="column">
+                    <div class="container is-primary">
+                        <h1 class="title">Imagination is the key to innovation</h1>
+                        <h2 class="subtitle">Albert Einstein</h2>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <section class="hero is-medium">
+        <div class="columns is-centered">
+         
+            <div class="column is-centered is-half has-background-info">
+                <form class="form" method="post" action="{{url_for('react')}}" enctype = "multipart/form-data">
+                <h2 class="title is-info">Trash collector Automatic tagging</h2>
+                <br><br>
+                    <div class="control">
+                        <input name="pic" class="button is-danger" type="file" id="load" onchange="print_url()"></button>
+                        <br><br>        
+                    </div>
+                      <button class="button is-primary" type="submit">Submit</button>
+                      <br><br>
+                        {% if state %}
+                            {% if name %}  
+                                <img src="static/{{name}}" onload="testing({{predicted}})" height="480" width="480" id="img">
+                                {% endif %}
+                        {% endif %} 
+
+                        {% if not state %}
+                            <img src="/static/img/clothes/gallery/hey1.jpg" height="480" width="480" id="img">
+                        {% endif %}
+                    <form>
+                        <br><br>
+                        <table data-toggle="table">
+                                <thead>Suggested tags</thead>
+                                    <tr id="tag1"">
+                                        <!--
+                                    <th><button>Shirt</button></th>
+                                    <th><button>paper</button></th>
+                                    <th><button>person</button></th>-->
+                                    </tr>
+                                <tbody>
+                                    <tr id="tag2">
+                                            <!--
+                                    <th><button>Shirt</button></th>
+                                    <th><button>paper</button></th>
+                                    <th><button>person</button></th>-->
+                                </tr>
+                                <tr id="tag3">
+                                        <!--
+                                    <th><button>Shirt</button></th>
+                                    <th><button>paper</button></th>
+                                    <th><button>person</button></th>-->
+                                    </tr>
+                                </tbody>
+                                </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+</body>
+</html>
